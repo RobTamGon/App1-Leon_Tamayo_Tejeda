@@ -14,7 +14,7 @@
 - **Diego Duhalde** <br>
   <dduhalde@alumnos.uai.cl>
 
-## **Integrates**
+## **Integrantes**
 - **Ignacio León** <br>
   <ignleon@alumnos.uai.cl>
 
@@ -23,6 +23,9 @@
 
 - **Filomena Tejeda** <br>
   <ftejeda@alumnos.uai.cl>
+
+## **Línea de compilación** <br>
+  < Realizarlo cuando se haya terminado >
 
 # **Tarea 1: Pizzería en C**
 
