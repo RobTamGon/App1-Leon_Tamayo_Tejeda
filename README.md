@@ -14,6 +14,15 @@
 - **Diego Duhalde** <br>
   <dduhalde@alumnos.uai.cl>
 
+## **Integrates**
+- **Ignacio León** <br>
+  <ignleon@alumnos.uai.cl>
+
+- **Alonso Tamayo** <br>
+  <atamayo@alumnos.uai.cl>
+
+- **Filomena Tejeda** <br>
+  <ftejeda@alumnos.uai.cl>
 
 # **Tarea 1: Pizzería en C**
 
