@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "structs.h"
-#include "lectura_csv.h" // Importamos la función leer_csv
+#include "lectura/lectura_csv.h" // Importamos la función leer_csv
 
 #define MAX_VENTAS 500
 
