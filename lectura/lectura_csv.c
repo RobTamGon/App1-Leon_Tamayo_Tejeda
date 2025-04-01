@@ -1,7 +1,7 @@
 #include <stdio.h>      // Librería estándar para entrada y salida (como printf, fopen, etc.)
 #include <stdlib.h>     // Librería estándar para funciones como atof, malloc, exit, etc.
 #include <string.h>     // Librería para manipular strings (como strcpy, strlen, etc.)
-#include "structs.h"    // Archivo propio donde se definió la estructura VentaPizza
+#include "../structs.h"    // Archivo propio donde se definió la estructura VentaPizza
 
 #define MAX_LINEA 1024      // Tamaño máximo de una línea del CSV
 #define MAX_CAMPOS 20       // Máximo número de campos por línea

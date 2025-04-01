@@ -5,7 +5,7 @@
 #ifndef LECTURA_CSV_H
 #define LECTURA_CSV_H
 
-#include "structs.h"
+#include "../structs.h"
 
 int leer_csv(const char *nombre_archivo, VentaPizza ventas[], int max_ventas);
 

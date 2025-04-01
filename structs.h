@@ -1,6 +1,8 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+
+
 typedef struct {
     char pizza_id[16];
     char order_id[16];
@@ -16,4 +18,12 @@ typedef struct {
     char pizza_name[128];
 } VentaPizza;
 
+
+typedef struct {
+    char nombre[128];
+    float cantidad_total;
+} PizzaVenta;
+
 #endif
+
+
