@@ -6,6 +6,15 @@
 #define MAX_LINEA 1024      // Tamaño máximo de una línea del CSV
 #define MAX_CAMPOS 20       // Máximo número de campos por línea
 
+void limpiar_comillas(char *campo) {
+    size_t len = strlen(campo);
+    if (len >= 2 && campo[0] == '"' && campo[len - 1] == '"') {
+        // Corre todos los caracteres una posición hacia la izquierda
+        memmove(campo, campo + 1, len - 2);
+        campo[len - 2] = '\0';  // Añade el fin de string correctamente
+    }
+}
+
 int leer_csv(const char *nombre_archivo, VentaPizza ventas[], int max_ventas) {
     FILE *archivo = fopen(nombre_archivo, "r");  // Abre el archivo CSV en modo lectura
     if (!archivo) {                           // Si no se puede abrir el archivo
@@ -40,6 +49,10 @@ int leer_csv(const char *nombre_archivo, VentaPizza ventas[], int max_ventas) {
         
         // Creamos una nueva estructura para almacenar esta venta
         VentaPizza v;
+
+        // Limpiar comillas dobles si existen en ingredientes y nombre de pizza
+        limpiar_comillas(campos[10]);
+        limpiar_comillas(campos[11]);
 
         // Copiamos cada campo leído desde el CSV a los campos de la estructura
         strcpy(v.pizza_id, campos[0]);           // ID de la pizza

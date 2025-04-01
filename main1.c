@@ -13,9 +13,9 @@ int main() {
     printf("Total ventas cargadas: %d\n", total_ventas);
 
     // Imprimimos las primeras 10 ventas
-    for (int j = 0; j < 10 && j < total_ventas; j++) {
-        printf("Venta %d - Pizza: %s, Cantidad: %.2f, Total: %.2f\n",
-               j + 1, ventas[j].pizza_name, ventas[j].quantity, ventas[j].unit_price);
+    for (int i = 0; i < 10 && i < total_ventas; i++) {
+        printf("Venta %d - Pizza: %s, Cantidad: %.2f, Total: %.2f, Ingrediente: %s \n", 
+               i + 1, ventas[i].pizza_name, ventas[i].quantity, ventas[i].unit_price, ventas[i].pizza_ingredients);
     }
 
     return 0;
