@@ -28,18 +28,21 @@ void pizza_mas_vendida(VentaPizza ventas[], int total_ventas) {
 
     // Buscar la pizza más vendida
     float max_cantidad = 0;
-    int indice_max = -1;
     for (int i = 0; i < total_pizzas; i++) {
         if (resumen[i].cantidad_total > max_cantidad) {
             max_cantidad = resumen[i].cantidad_total;
-            indice_max = i;
         }
     }
 
-    if (indice_max != -1) {
-        printf("\n🍕 La pizza más vendida es: %s\n", resumen[indice_max].nombre);
-        printf("👉 Total de unidades vendidas: %.2f\n", resumen[indice_max].cantidad_total);
-    } else {
+    printf("\n Pizzas más vendidas (empate o única):\n");
+    for (int i = 0; i < total_pizzas; i++) {
+        if (resumen[i].cantidad_total == max_cantidad) {
+            printf(" %s - Unidades vendidas: %.2f\n", resumen[i].nombre, resumen[i].cantidad_total);
+        }
+    }
+
+    // Si no hubo ninguna
+    if (max_cantidad == 0) {
         printf("No se encontraron ventas válidas.\n");
     }
 }
