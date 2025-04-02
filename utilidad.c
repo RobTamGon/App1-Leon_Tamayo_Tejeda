@@ -4,6 +4,21 @@
 #include <ctype.h>
 #include <time.h>
 
+
+void parsear_fecha_hora(const char *order_date, const char *order_time, struct tm *fecha) {
+    // Inicializar la estructura a cero
+    memset(fecha, 0, sizeof(struct tm));
+
+    // Suponiendo que order_date está en formato "día/mes/año"
+    // y order_time en formato "hora:minuto:segundo", por ejemplo: "1/1/2015" y "11:38:36"
+    sscanf(order_date, "%d/%d/%d", &fecha->tm_mday, &fecha->tm_mon, &fecha->tm_year);
+    sscanf(order_time, "%d:%d:%d", &fecha->tm_hour, &fecha->tm_min, &fecha->tm_sec);
+
+    // Ajustes: tm_mon es 0-11 y tm_year es años transcurridos desde 1900
+    fecha->tm_mon -= 1;
+    fecha->tm_year -= 1900;
+}
+
 typedef struct {
     int pizza_id;
     int order_id;
