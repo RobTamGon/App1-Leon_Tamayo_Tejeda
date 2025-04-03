@@ -2,16 +2,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../structs.h"
-#include "pizza_mas_vendida.h"
+#include "pizza_menos_vendida.h"
 
 #define MAX_PIZZAS 200
 
-char* metrica_pms(int *size, VentaPizza *ventas) {
-    // Arreglo para guardar los nombres y cantidades
+char* metrica_pls(int *size, VentaPizza *ventas) {
     PizzaVenta resumen[MAX_PIZZAS];
     int total = 0;
 
-    // Agrupar cantidades por pizza
+    // Agrupar ventas por nombre de pizza
     for (int i = 0; i < *size; i++) {
         int j;
         for (j = 0; j < total; j++) {
@@ -27,17 +26,16 @@ char* metrica_pms(int *size, VentaPizza *ventas) {
         }
     }
 
-    // Buscar la pizza con mayor cantidad
-    float max = 0;
-    char *ganadora = NULL;
+    // Buscar la pizza menos vendida
+    float min = resumen[0].cantidad_total;
+    char *peor = resumen[0].nombre;
 
-    for (int i = 0; i < total; i++) {
-        if (resumen[i].cantidad_total > max) {
-            max = resumen[i].cantidad_total;
-            ganadora = resumen[i].nombre;
+    for (int i = 1; i < total; i++) {
+        if (resumen[i].cantidad_total < min) {
+            min = resumen[i].cantidad_total;
+            peor = resumen[i].nombre;
         }
     }
 
-    // Retornar el nombre (como copia dinámica)
-    return ganadora ? strdup(ganadora) : strdup("Sin datos");
+    return peor ? strdup(peor) : strdup("Sin datos");
 }
