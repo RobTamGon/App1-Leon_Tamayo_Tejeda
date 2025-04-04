@@ -3,7 +3,7 @@
 
 #define MAX_LINE_LENGTH 512
 
-Venta* leer_csv(const char* nombre_archivo, int* contador) {
+Venta* leer_csv(const char* nombre_archivo, int* largo) {
     FILE* archivo = fopen(nombre_archivo, "r");
     if (!archivo) {
         perror("Error al abrir el archivo CSV");
@@ -11,16 +11,16 @@ Venta* leer_csv(const char* nombre_archivo, int* contador) {
     }
 
     char linea[MAX_LINE_LENGTH];
-    *contador = 0;
+    *largo = 0;
 
     // Contar líneas para saber cuántas órdenes hay
     while (fgets(linea, sizeof(linea), archivo)) {
-        (*contador)++;
+        (*largo)++;
     }
     rewind(archivo); // Volvemos al inicio del archivo
 
     // Reservamos memoria para todas las órdenes
-    Venta* ventas = malloc((*contador) * sizeof(Venta));
+    Venta* ventas = malloc((*largo) * sizeof(Venta));
     if (!ventas) {
         perror("Error al asignar memoria");
         fclose(archivo);

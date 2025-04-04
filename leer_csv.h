@@ -19,7 +19,7 @@ typedef struct {
     char pizza_name[50];
 } Venta;
 
-Venta* leer_csv(const char* nombre_archivo, int* contador);
+Venta* leer_csv(const char* nombre_archivo, int* largo);
 void liberar_ventas(Venta* ventas);
 
 #endif

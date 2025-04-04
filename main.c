@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "leer_csv.h"
+#include "ventas_fechas.h"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -19,6 +20,18 @@ int main(int argc, char* argv[]) {
         printf("%d - %s - %d unidades\n", ventas[i].order_id, ventas[i].pizza_name, ventas[i].quantity);
     }
 
-    liberar_ventas(ventas);
+    // Imprime la fecha con más ventas en cantidad de pizzas
+    printf("%s" , encontrar_fecha_mas_vendida(&contador_ventas, ventas));
+
+    // Imprime la fecha con más ventas en dinero
+    printf("%s", encontrar_fecha_mas_ingresos(&contador_ventas, ventas));
+
+    // Imprime la fecha con menos ventas en cantidad de pizzas
+    printf("%s", encontrar_fecha_menos_vendida(&contador_ventas, ventas));
+
+    // Imprime la fecha con menos ventas en dinero
+    printf("%s", encontrar_fecha_menos_ingresos(&contador_ventas, ventas));
+
+    //liberar_ventas(ventas);
     return 0;
 }
