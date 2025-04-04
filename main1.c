@@ -37,13 +37,11 @@ int main(int argc, char *argv[]) {
         } else if (strcmp(argv[i], "pls") == 0) {
             pizza_menos_vendida(ventas, total_ventas);
         } else if (strcmp(argv[i], "cat") == 0) {
-            printf("(Aquí se mostraría la agrupación por categoría)\n");
+            // otra función
         } else {
             printf("Comando desconocido: %s\n", argv[i]);
         }
     }
-
+    
     return 0;
 }
-    
-
