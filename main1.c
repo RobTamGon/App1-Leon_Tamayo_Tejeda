@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
 #include "structs.h"
 #include "lectura/lectura_csv.h" // Importamos la función leer_csv
 #include "funciones/pizza_mas_vendida.h"
 #include "funciones/pizza_menos_vendida.h"
+#include "funciones/ingrediente_mas_vendido.h"
 
 
 #define MAX_VENTAS 500
@@ -33,11 +36,15 @@ int main(int argc, char *argv[]) {
 
     for (int i = 2; i < argc; i++) {
         if (strcmp(argv[i], "pms") == 0) {
-            pizza_mas_vendida(ventas, total_ventas);
+            char* resultado = pizza_mas_vendida(&total_ventas, ventas);
+            printf("%s\n", resultado);
         } else if (strcmp(argv[i], "pls") == 0) {
-            pizza_menos_vendida(ventas, total_ventas);
-        } else if (strcmp(argv[i], "cat") == 0) {
-            // otra función
+            char* resultado = pizza_menos_vendida(&total_ventas, ventas);
+            printf("%s\n", resultado);
+        } else if (strcmp(argv[i], "ims") == 0) {
+                char* resultado = ingrediente_mas_vendido(&total_ventas, ventas);
+                printf("%s\n", resultado);
+                free(resultado);  // IMPORTANTE: liberar memoria después de usarlo        
         } else {
             printf("Comando desconocido: %s\n", argv[i]);
         }
