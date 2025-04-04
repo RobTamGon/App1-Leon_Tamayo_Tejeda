@@ -3,7 +3,6 @@
 
 #include "../structs.h"
 
-void pizza_menos_vendida(VentaPizza ventas[], int total_ventas);
-
+char* pizza_menos_vendida(int *size, VentaPizza *ventas);
 
 #endif
