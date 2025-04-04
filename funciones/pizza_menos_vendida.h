@@ -3,6 +3,7 @@
 
 #include "../structs.h"
 
-char* metrica_pls(int *size, VentaPizza *ventas);
+void pizza_menos_vendida(VentaPizza ventas[], int total_ventas);
+
 
 #endif
