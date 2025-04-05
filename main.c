@@ -1,10 +1,10 @@
-#include <stdio.h>								            // Para imprimir (printf)
-#include <string.h>								            // Para comparar Strings fácilmente (strcmp)
+#include <stdio.h>								// Para imprimir (printf y perror)
+#include <stdlib.h>								// Para utilizar memoria dinámica (malloc y free)
+#include <string.h>								// Para comparar Strings fácilmente (strcmp)
 
-#include "structs.h"							            // Contiene la estructura de datos order
-#include "archivo/leer_csv.h"					        // Contiene la funcionalidad de leer el archivo de datos y completar las estructuras de datos de tipo order
+#include "structs.h"							// Contiene la estructura de datos order
+#include "archivo/cargar_ordenes.h"				// Contiene la funcionalidad de leer la cantidad de órdenes en el archivo y completar las estructuras de datos de tipo order con los datos del archivo
 #include "metricas/atributo_mayor_menor.h"		// Contiene las funciones para las métricas de categoría Atributo Mayor o Menor: pms (Pizza más vendida), pls (Pizza menos vendida) e ims (Ingrediente más vendido)
-
 
 //ESTA PARTE ES TEMPORAL, SOLAMENTE PARA PROBAR
 char* f3(int *size, order *orders)
@@ -43,10 +43,10 @@ char* f10(int *size, order *orders)
 }
 
 
-#define INDICE_PARAMETRO_ARCHIVO 1						// Índice del parámetro que indica el nombre del archivo de datos a leer
-#define PARAMETROS_ANTES_DE_METRICAS 2			  // Cantidad de parámetros que deben haber antes de ingresar parámetros asociados a métricas
-#define LARGO_METRICAS 10						          // Largo de la lista metricas, es decir, la cantidad de métricas/funciones que el programa reconoce
-#define MAX_ORDENES 1000						          // Cantidad máxima de órdenes a guardar [SE PODRÍA ELIMINAR CON UNA FUNCIÓN PREVIA QUE REGRESA LA CANTIDAD DE ÓRDENES SIN RELLENAR LAS ESTRUCTURAS]
+#define INDICE_PARAMETRO_ARCHIVO 1				// Índice del parámetro que indica el nombre del archivo de datos a leer
+#define PARAMETROS_ANTES_DE_METRICAS 2			// Cantidad de parámetros que deben haber antes de ingresar parámetros asociados a métricas
+#define LARGO_METRICAS 10						// Largo de la lista metricas, es decir, la cantidad de métricas/funciones que el programa reconoce
+#define MAX_ORDENES 1000						// Cantidad máxima de órdenes a guardar [SE PODRÍA ELIMINAR CON UNA FUNCIÓN PREVIA QUE REGRESA LA CANTIDAD DE ÓRDENES SIN RELLENAR LAS ESTRUCTURAS]
 
 
 
@@ -98,15 +98,28 @@ int main(int argc, char *argv[])
     }
 
 
-	// Lee el archivo ingresado como segundo parámetro en la línea de comando y guarda las estructuras de las órdenes creadas a partir de esa lectura
-	order ordenes[MAX_ORDENES];
-	int largo_ordenes = leer_csv(argv[INDICE_PARAMETRO_ARCHIVO], ordenes, MAX_ORDENES);
+	// Obtiene la cantidad de órdenes en el archivo CSV entregado
+	int cantidad_ordenes = obtener_cantidad_ordenes(argv[INDICE_PARAMETRO_ARCHIVO]);
+	
+	// Asigna memoria dinámica para almacenar las estructuras de las órdenes, con un check para avisar si no se puede asignar todo el espacio necesario
+	order *ordenes = malloc(cantidad_ordenes * sizeof(order));
+	if (!ordenes)
+	{
+		perror("ERROR al asignar memoria");
+		return 1;
+	}
+
+	// Carga los datos del archivo CSV entregado en las estructuras
+	cargar_ordenes(argv[INDICE_PARAMETRO_ARCHIVO], ordenes);
 
 
 	// De manera general: itera por cada parámetro, métrica, y comando reconocido para encontrar la métrica correcta asociada al parámetro ingresado
 	// Específicamente: itera por cada parámetro desde el primero que debe considerarse asociado a una métrica
 	for (int arg_i = PARAMETROS_ANTES_DE_METRICAS; arg_i < argc; arg_i++)
 	{
+		// Variable que guarda si el parámetro ingresado fue asociado a una métrica o no
+		int metrica_encontrada = 0;
+
 		// Itera por cada estructura de tipo Metrica
 		for (int metrica_i = 0; metrica_i < LARGO_METRICAS; metrica_i++)
 		{
@@ -116,11 +129,22 @@ int main(int argc, char *argv[])
 			{
 				if (strcmp(argv[arg_i], metricas[metrica_i].comandos[comando_i]) == 0)
 				{
-					printf("- %s\n", metricas[metrica_i].funcion_metrica(&largo_ordenes, ordenes));
+					metrica_encontrada = 1;
+					printf("- %s\n", metricas[metrica_i].funcion_metrica(&cantidad_ordenes, ordenes));
 				}
 			}
 		}
+
+		// Si el parámetro ingresado no fue asociado a ninguna métrica, imprime un mensaje para notificarlo y sugerir ver los argumentos que sí se reconocen
+		if (!metrica_encontrada)
+		{
+			printf("! El agumento ingresado: '%s' no se encuentra asociado a ninguna metrica, ejecuta el programa sin argumentos para ver los argumentos reconocidos.\n", argv[arg_i]);
+		}
 	}
+
+
+	// Se libera la memoria dinámica usada en almacenar las órdenes
+	free(ordenes);
 
 
 	return 0;
