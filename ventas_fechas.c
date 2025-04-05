@@ -16,7 +16,7 @@ typedef struct {
 char* encontrar_fecha_mas_vendida(int *largo, Venta *ventas) {
     VentaFecha ventas_fecha[MAX_FECHAS] = {0};
     int total_fechas = 0;
-    char *fecha_mas_vendida = malloc(2048);  // Reservamos espacio de sobra
+    //char *fecha_mas_vendida = malloc(2048);  // Reservamos espacio de sobra
 
     for (int i = 0; i < *largo; i++) {
         int idx = -1;
@@ -48,14 +48,15 @@ char* encontrar_fecha_mas_vendida(int *largo, Venta *ventas) {
     //}
 
     // Encontrar la fecha con más ventas en cantidad de pizzas
-    int max_ventas = 0, index_max = 0;
+    float max_ventas = 0; 
+    //int index_max = 0;
     for (int i = 0; i < total_fechas; i++) {
         if (ventas_fecha[i].total_pizzas > max_ventas) {
             max_ventas = ventas_fecha[i].total_pizzas;
-            index_max = i;
+            //index_max = i;
         }
     }
-    strcpy(fecha_mas_vendida, ventas_fecha[index_max].fecha);
+    //strcpy(fecha_mas_vendida, ventas_fecha[index_max].fecha);
 
     char *respuesta = malloc(2048);  // Reservamos espacio de sobra
     if (!respuesta) {
@@ -66,7 +67,7 @@ char* encontrar_fecha_mas_vendida(int *largo, Venta *ventas) {
     //char dinero_recaudado[20];
     //sprintf(dinero_recaudado, "%.2f", ventas_fecha[index_max].total_dinero);
     char pizzas_recaudado[20];
-    sprintf(pizzas_recaudado, "%.2f", ventas_fecha[index_max].total_pizzas);
+    sprintf(pizzas_recaudado, "%.2f", max_ventas);
 
     //strcpy(respuesta, " Fecha con mas ventas en términos de dinero: ");  // Empezamos escribiendo la primera parte del mensaje
     //strcat(respuesta, fecha_mas_vendida);  // Añadimos la fecha
@@ -74,8 +75,20 @@ char* encontrar_fecha_mas_vendida(int *largo, Venta *ventas) {
     //strcat(respuesta, dinero_recaudado);  // Añadimos el total de dinero
 
     strcpy(respuesta, "Fecha con mas ventas en terminos de cantidad de pizzas: ");  // Empezamos escribiendo la primera parte del mensaje
-    strcat(respuesta, fecha_mas_vendida);  // Añadimos la fecha
-    strcat(respuesta, ", Cantidad de pizzas: ");  // Añadimos la tercera parte del mensaje
+    //strcat(respuesta, fecha_mas_vendida);  // Añadimos la fecha
+    // Añadir todas las fechas que tienen la cantidad máxima de ventas
+    int primera_fecha = 1;
+    for (int i = 0; i < total_fechas; i++) {
+        if (ventas_fecha[i].total_pizzas == max_ventas) {
+            if (!primera_fecha) {
+                strcat(respuesta, ", ");
+            }
+            strcat(respuesta, ventas_fecha[i].fecha);
+            primera_fecha = 0;
+        }
+    }
+
+    strcat(respuesta, ". Cantidad de pizzas: ");  // Añadimos la tercera parte del mensaje
     strcat(respuesta, pizzas_recaudado);  // Añadimos el total de pizzas
 
     return respuesta;
@@ -85,7 +98,7 @@ char* encontrar_fecha_mas_vendida(int *largo, Venta *ventas) {
 char* encontrar_fecha_mas_ingresos(int *largo, Venta *ventas) {
     VentaFecha ventas_fecha[MAX_FECHAS] = {0};
     int total_fechas = 0;
-    char *fecha_mas_ingresos = malloc(2048);  // Reservamos espacio de sobra
+    //char *fecha_mas_ingresos = malloc(2048);  // Reservamos espacio de sobra
 
     for (int i = 0; i < *largo; i++) {
         int idx = -1;
@@ -105,14 +118,14 @@ char* encontrar_fecha_mas_ingresos(int *largo, Venta *ventas) {
 
     // Encontrar la fecha con más ingresos
     float max_ingresos = 0;
-    int index_max = 0;
+    //int index_max = 0;
     for (int i = 0; i < total_fechas; i++) {
         if (ventas_fecha[i].total_dinero > max_ingresos) {
             max_ingresos = ventas_fecha[i].total_dinero;
-            index_max = i;
+            //index_max = i;
         }
     }
-    strcpy(fecha_mas_ingresos, ventas_fecha[index_max].fecha);
+    //strcpy(fecha_mas_ingresos, ventas_fecha[index_max].fecha);
 
     char *respuesta = malloc(2048);  // Reservamos espacio de sobra
     if (!respuesta) {
@@ -121,11 +134,22 @@ char* encontrar_fecha_mas_ingresos(int *largo, Venta *ventas) {
 
     // Convertir el total de dinero a string con 2 decimales
     char dinero_recaudado[20];
-    sprintf(dinero_recaudado, "%.2f", ventas_fecha[index_max].total_dinero);
+    sprintf(dinero_recaudado, "%.2f", max_ingresos);
 
     strcpy(respuesta, "Fecha con mas ventas en terminos de dinero: ");  // Empezamos escribiendo la primera parte del mensaje
-    strcat(respuesta, fecha_mas_ingresos);  // Añadimos la fecha
-    strcat(respuesta, ", Cantidad de dinero recaudado: ");  // Añadimos la segunda parte del mensaje
+    //strcat(respuesta, fecha_mas_ingresos);  // Añadimos la fecha
+    // Añadir todas las fechas que tienen la cantidad máxima de ingresos    
+    int primera_fecha = 1;
+    for (int i = 0; i < total_fechas; i++) {
+        if (ventas_fecha[i].total_dinero == max_ingresos) {
+            if (!primera_fecha) {
+                strcat(respuesta, ", ");
+            }
+            strcat(respuesta, ventas_fecha[i].fecha);
+            primera_fecha = 0;
+        }
+    }
+    strcat(respuesta, ". Cantidad de dinero recaudado: ");  // Añadimos la segunda parte del mensaje
     strcat(respuesta, dinero_recaudado);  // Añadimos el total de dinero
 
     return respuesta;
@@ -135,7 +159,7 @@ char* encontrar_fecha_mas_ingresos(int *largo, Venta *ventas) {
 char* encontrar_fecha_menos_vendida(int *largo, Venta *ventas) {
     VentaFecha ventas_fecha[MAX_FECHAS] = {0};
     int total_fechas = 0;
-    char *fecha_menos_vendida = malloc(2048);  // Reservamos espacio de sobra
+    //char *fecha_menos_vendida = malloc(2048);  // Reservamos espacio de sobra
 
     for (int i = 0; i < *largo; i++) {
         int idx = -1;
@@ -158,14 +182,15 @@ char* encontrar_fecha_menos_vendida(int *largo, Venta *ventas) {
     //}
 
     // Encontrar la fecha con menos ventas en cantidad de pizzas
-    int min_ventas = ventas_fecha[0].total_pizzas, index_min = 0;
+    float min_ventas = ventas_fecha[0].total_pizzas;
+    //int index_min = 0;
     for (int i = 1; i < total_fechas; i++) {
         if (ventas_fecha[i].total_pizzas >= 0 && ventas_fecha[i].total_pizzas < min_ventas) {
             min_ventas = ventas_fecha[i].total_pizzas;
-            index_min = i;
+            //index_min = i;
         }
     }
-    strcpy(fecha_menos_vendida, ventas_fecha[index_min].fecha);
+    //strcpy(fecha_menos_vendida, ventas_fecha[index_min].fecha);
 
     char *respuesta = malloc(2048);  // Reservamos espacio de sobra
     if (!respuesta) {
@@ -174,11 +199,25 @@ char* encontrar_fecha_menos_vendida(int *largo, Venta *ventas) {
 
     // Convertir el total de dinero a string con 2 decimales
     char pizzas_recaudado[20];
-    sprintf(pizzas_recaudado, "%.2f", ventas_fecha[index_min].total_pizzas);
+    sprintf(pizzas_recaudado, "%.2f", min_ventas);
+    //sprintf(pizzas_recaudado, "%.2f", ventas_fecha[index_min].total_pizzas);
 
     strcpy(respuesta, "Fecha con menos ventas en terminos de cantidad de pizzas: ");  // Empezamos escribiendo la primera parte del mensaje
-    strcat(respuesta, fecha_menos_vendida);  // Añadimos la fecha
-    strcat(respuesta, ", Cantidad de pizzas: ");  // Añadimos la tercera parte del mensaje
+    //strcat(respuesta, fecha_menos_vendida);  // Añadimos la fecha
+    // Añadir todas las fechas que tienen la cantidad mínima de ventas
+    int primera_fecha = 1;
+    for (int i = 0; i < total_fechas; i++) {
+        //if (ventas_fecha[i].total_pizzas == min_ventas) {
+        if (ventas_fecha[i].total_pizzas == min_ventas) {
+            if (!primera_fecha) {
+                strcat(respuesta, ", ");
+            }
+            strcat(respuesta, ventas_fecha[i].fecha);
+            primera_fecha = 0;
+        }
+    }
+
+    strcat(respuesta, ". Cantidad de pizzas: ");  // Añadimos la tercera parte del mensaje
     strcat(respuesta, pizzas_recaudado);  // Añadimos el total de pizzas
 
     return respuesta;
@@ -188,7 +227,7 @@ char* encontrar_fecha_menos_vendida(int *largo, Venta *ventas) {
 char* encontrar_fecha_menos_ingresos(int *largo, Venta *ventas) {
     VentaFecha ventas_fecha[MAX_FECHAS] = {0};
     int total_fechas = 0;
-    char *fecha_menos_ingresos = malloc(2048);  // Reservamos espacio de sobra
+    //char *fecha_menos_ingresos = malloc(2048);  // Reservamos espacio de sobra
 
     for (int i = 0; i < *largo; i++) {
         int idx = -1;
@@ -208,14 +247,14 @@ char* encontrar_fecha_menos_ingresos(int *largo, Venta *ventas) {
 
     // Encontrar la fecha con menos ingresos
     float min_ingresos = ventas_fecha[0].total_dinero;
-    int index_min = 0;
+    //int index_min = 0;
     for (int i = 1; i < total_fechas; i++) {
         if (ventas_fecha[i].total_dinero >= 0 && ventas_fecha[i].total_dinero < min_ingresos) {
             min_ingresos = ventas_fecha[i].total_dinero;
-            index_min = i;
+            //index_min = i;
         }
     }
-    strcpy(fecha_menos_ingresos, ventas_fecha[index_min].fecha);
+    //strcpy(fecha_menos_ingresos, ventas_fecha[index_min].fecha);
 
     char *respuesta = malloc(2048);  // Reservamos espacio de sobra
     if (!respuesta) {
@@ -224,11 +263,23 @@ char* encontrar_fecha_menos_ingresos(int *largo, Venta *ventas) {
     
     // Convertir el total de dinero a string con 2 decimales
     char dinero_recaudado[20];
-    sprintf(dinero_recaudado, "%.2f", ventas_fecha[index_min].total_dinero);
+    sprintf(dinero_recaudado, "%.2f", min_ingresos);
+    //sprintf(dinero_recaudado, "%.2f", ventas_fecha[index_min].total_dinero);
 
     strcpy(respuesta, "Fecha con menos ventas en terminos de dinero: ");  // Empezamos escribiendo la primera parte del mensaje
-    strcat(respuesta, fecha_menos_ingresos);  // Añadimos la fecha
-    strcat(respuesta, ", Cantidad de dinero recaudado: ");  // Añadimos la segunda parte del mensaje
+    //strcat(respuesta, fecha_menos_ingresos);  // Añadimos la fecha
+    // Añadir todas las fechas que tienen la cantidad mínima de ingresos
+    int primera_fecha = 1;
+    for (int i = 0; i < total_fechas; i++) {
+        if (ventas_fecha[i].total_dinero == min_ingresos) {
+            if (!primera_fecha) {
+                strcat(respuesta, ", ");
+            }
+            strcat(respuesta, ventas_fecha[i].fecha);
+            primera_fecha = 0;
+        }
+    }
+    strcat(respuesta, ". Cantidad de dinero recaudado: ");  // Añadimos la segunda parte del mensaje
     strcat(respuesta, dinero_recaudado);  // Añadimos el total de dinero
 
     return respuesta;
