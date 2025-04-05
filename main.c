@@ -2,6 +2,7 @@
 #include "leer_csv.h"
 #include "ventas_fechas.h"
 #include "ventas_pizzas.h"
+#include "ventas_promedio.h"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -47,6 +48,15 @@ int main(int argc, char* argv[]) {
 
     // Imprime la fecha con menos ventas en dinero
     printf("%s", encontrar_ingrediente_mas_vendido(&contador_ventas, ventas));
+    printf("\n");
+
+    printf("%s", encontrar_promedio_pizzas_orden(&contador_ventas, ventas));
+    printf("\n");
+
+    printf("%s", encontrar_promedio_pizzas_por_dia(&contador_ventas, ventas));
+    printf("\n");
+
+    printf("%s", encontrar_categorias_vendidas(&contador_ventas, ventas));
     printf("\n");
 
     liberar_ventas(ventas);
