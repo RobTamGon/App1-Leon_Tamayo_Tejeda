@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "leer_csv.h"
 #include "ventas_fechas.h"
+#include "ventas_pizzas.h"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -15,7 +16,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    printf("Se cargaron %d órdenes:\n", contador_ventas);
+    printf("Se cargaron %d ordenes:\n", contador_ventas);
     for (int i = 0; i < contador_ventas; i++) {
         printf("%d - %s - %.2f unidades\n", ventas[i].order_id, ventas[i].pizza_name, ventas[i].quantity);
     }
