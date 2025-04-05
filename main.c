@@ -3,6 +3,7 @@
 #include "ventas_fechas.h"
 #include "ventas_pizzas.h"
 #include "ventas_promedio.h"
+// Se incluyen las bibliotecas y los archivos .h necesarios para el programa
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -59,6 +60,6 @@ int main(int argc, char* argv[]) {
     printf("%s", encontrar_categorias_vendidas(&contador_ventas, ventas));
     printf("\n");
 
-    liberar_ventas(ventas);
+    liberar_ventas(ventas); // Liberar la memoria asignada a las ventas
     return 0;
 }
