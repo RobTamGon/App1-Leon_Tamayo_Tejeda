@@ -1,8 +1,8 @@
-#include <stdio.h>								// Para imprimir (printf)
-#include <string.h>								// Para comparar Strings fácilmente (strcmp)
+#include <stdio.h>								            // Para imprimir (printf)
+#include <string.h>								            // Para comparar Strings fácilmente (strcmp)
 
-#include "structs.h"							// Contiene la estructura de datos order
-#include "archivo/leer_csv.h"					// Contiene la funcionalidad de leer el archivo de datos y completar las estructuras de datos de tipo order
+#include "structs.h"							            // Contiene la estructura de datos order
+#include "archivo/leer_csv.h"					        // Contiene la funcionalidad de leer el archivo de datos y completar las estructuras de datos de tipo order
 #include "metricas/atributo_mayor_menor.h"		// Contiene las funciones para las métricas de categoría Atributo Mayor o Menor: pms (Pizza más vendida), pls (Pizza menos vendida) e ims (Ingrediente más vendido)
 
 
@@ -44,9 +44,9 @@ char* f10(int *size, order *orders)
 
 
 #define INDICE_PARAMETRO_ARCHIVO 1						// Índice del parámetro que indica el nombre del archivo de datos a leer
-#define PARAMETROS_ANTES_DE_METRICAS 2			// Cantidad de parámetros que deben haber antes de ingresar parámetros asociados a métricas
-#define LARGO_METRICAS 10						// Largo de la lista metricas, es decir, la cantidad de métricas/funciones que el programa reconoce
-#define MAX_ORDENES 1000						// Cantidad máxima de órdenes a guardar [SE PODRÍA ELIMINAR CON UNA FUNCIÓN PREVIA QUE REGRESA LA CANTIDAD DE ÓRDENES SIN RELLENAR LAS ESTRUCTURAS]
+#define PARAMETROS_ANTES_DE_METRICAS 2			  // Cantidad de parámetros que deben haber antes de ingresar parámetros asociados a métricas
+#define LARGO_METRICAS 10						          // Largo de la lista metricas, es decir, la cantidad de métricas/funciones que el programa reconoce
+#define MAX_ORDENES 1000						          // Cantidad máxima de órdenes a guardar [SE PODRÍA ELIMINAR CON UNA FUNCIÓN PREVIA QUE REGRESA LA CANTIDAD DE ÓRDENES SIN RELLENAR LAS ESTRUCTURAS]
 
 
 

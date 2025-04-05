@@ -55,8 +55,17 @@ $(TARGET): $(OBJECTS)
 	$(COMPILER) -o $(TARGET) $(OBJECTS)
 
 # Archivos .c y .h a compilar en Objetos (.o)
-main.o: main.c
-	$(COMPILER) -c main.c
+main.o: main.c  
+	$(COMPILER) -c main.c 
+
+leer_csv.o: leer_csv.c leer_csv.h
+	$(COMPILER) -c leer_csv.c
+
+ventas_fechas.o: ventas_fechas.c ventas_fechas.h
+	$(COMPILER) -c ventas_fechas.c
+
+ventas_pizzas.o: ventas_pizzas.c ventas_pizzas.h
+	$(COMPILER) -c ventas_pizzas.c
 
 leer_csv.o: archivo/leer_csv.c archivo/leer_csv.h
 	$(COMPILER) -c archivo/leer_csv.c
