@@ -55,19 +55,19 @@ $(TARGET): $(OBJECTS)
 	$(COMPILER) -o $(TARGET) $(OBJECTS)
 
 # Archivos .c y .h a compilar en Objetos (.o)
-main.o: main.c structs.h
+main.o: main.c structs.h archivo/cargar_ordenes.h metricas/atributo_mayor_menor.h metricas/fecha_mayor_menor.h metricas/estadisticas_cantidades.h
 	$(COMPILER) -c main.c
 
-cargar_ordenes.o: archivo/cargar_ordenes.c archivo/cargar_ordenes.h structs.h
+cargar_ordenes.o: archivo/cargar_ordenes.c structs.h
 	$(COMPILER) -c archivo/cargar_ordenes.c
 
-atributo_mayor_menor.o: metricas/atributo_mayor_menor.c metricas/atributo_mayor_menor.h structs.h
+atributo_mayor_menor.o: metricas/atributo_mayor_menor.c structs.h
 	$(COMPILER) -c metricas/atributo_mayor_menor.c
 
-fecha_mayor_menor.o: metricas/fecha_mayor_menor.c metricas/fecha_mayor_menor.h structs.h
+fecha_mayor_menor.o: metricas/fecha_mayor_menor.c structs.h
 	$(COMPILER) -c metricas/fecha_mayor_menor.c
 
-estadisticas_cantidades.o: metricas/estadisticas_cantidades.c metricas/estadisticas_cantidades.h structs.h
+estadisticas_cantidades.o: metricas/estadisticas_cantidades.c structs.h
 	$(COMPILER) -c metricas/estadisticas_cantidades.c
 
 # Instrucción para limpiar el directorio, eliminando el archivo ejecutable y los objetos (.o) intermedios
