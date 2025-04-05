@@ -16,20 +16,20 @@
 
 
 
+// Define el tipo de variable que es el puntero a una de las funciones de las métricas
+typedef char* (*PunteroFuncion)(int*, order*);
+
+// Define el tipo de variable que contiene el puntero a la función de su métrica correspondiente, junto con los Strings que se asocian a esa métrica
+typedef struct
+{
+	const int largo_comandos;
+	const char *comandos[2];
+	const PunteroFuncion funcion_metrica;
+} Metrica;
+
+
 int main(int argc, char *argv[])
 {
-	// Define el tipo de variable que es el puntero a una de las funciones de las métricas
-	typedef char* (*PunteroFuncion)(int*, order*);
-
-	// Define el tipo de variable que contiene el puntero a la función de su métrica correspondiente, junto con los Strings que se asocian a esa métrica
-	typedef struct
-	{
-		const int largo_comandos;
-		const char *comandos[2];
-		const PunteroFuncion funcion_metrica;
-	} Metrica;
-
-
 	// Lista de estructuras de tipo Metrica, es decir, inicializa todas las opciones que reconocerá el programa
 	const Metrica metricas[LARGO_METRICAS] =
 	{
