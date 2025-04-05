@@ -13,7 +13,7 @@ typedef struct {
     char order_time[10];  
     float unit_price;
     float total_price;
-    char pizza_size;
+    char pizza_size[4];
     char pizza_category[20];
     char pizza_ingredients[200];
     char pizza_name[50];

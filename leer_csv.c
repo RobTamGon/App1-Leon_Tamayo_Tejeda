@@ -36,11 +36,12 @@ Venta* leer_csv(const char* nombre_archivo, int* largo) {
     // Leer las líneas y parsear datos
     int i = 0;
     while (fgets(linea, sizeof(linea), archivo)) {
-        sscanf(linea, "%d,%d,%49[^,],%f,%14[^,],%9[^,],%f,%f,%c,%19[^,],\"%199[^\"]\",%49[^\n]",
+        sscanf(linea, "%d,%d,%49[^,],%f,%14[^,],%9[^,],%f,%f,%3[^,],%19[^,],\"%199[^\"]\",%49[^\n]",
             &ventas[i].pizza_id, &ventas[i].order_id, ventas[i].pizza_name_id,
             &ventas[i].quantity, ventas[i].order_date, ventas[i].order_time,
             &ventas[i].unit_price, &ventas[i].total_price, &ventas[i].pizza_size,
             ventas[i].pizza_category, ventas[i].pizza_ingredients, ventas[i].pizza_name);
+
         i++;
     }
 
