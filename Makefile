@@ -1,7 +1,7 @@
 # Variables para configurar el Makefile
 TARGET = app1
 COMPILER = gcc
-OBJECTS = main.o cargar_ordenes.o atributo_mayor_menor.o fecha_mayor_menor.o
+OBJECTS = main.o cargar_ordenes.o atributo_mayor_menor.o fecha_mayor_menor.o estadisticas_cantidades.o
 
 # Modifica algunos parámetros según el sistema operativo que lo ejecute
 # (Windows también requiere añadir la extensión .exe al ejecutable cuando se borre este archivo al limpiar)
@@ -66,6 +66,9 @@ atributo_mayor_menor.o: metricas/atributo_mayor_menor.c metricas/atributo_mayor_
 
 fecha_mayor_menor.o: metricas/fecha_mayor_menor.c metricas/fecha_mayor_menor.h structs.h
 	$(COMPILER) -c metricas/fecha_mayor_menor.c
+
+estadisticas_cantidades.o: metricas/estadisticas_cantidades.c metricas/estadisticas_cantidades.h structs.h
+	$(COMPILER) -c metricas/estadisticas_cantidades.c
 
 # Instrucción para limpiar el directorio, eliminando el archivo ejecutable y los objetos (.o) intermedios
 # (Ejemplo: make clean)
