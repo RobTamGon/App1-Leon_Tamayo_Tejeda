@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
 		{2, {"dls", "encontrar_fecha_menos_vendida"}, encontrar_fecha_menos_vendida},
 		{2, {"dmsp", "encontrar_fecha_mas_ingresos"}, encontrar_fecha_mas_ingresos},
 		{2, {"dlsp", "encontrar_fecha_menos_ingresos"}, encontrar_fecha_menos_ingresos},
-		{2, {"apo", "encontrar_promedio_pizzas_orden"}, encontrar_promedio_pizzas_orden},
-		{2, {"apd", "encontrar_promedio_pizzas_dia"}, encontrar_promedio_pizzas_dia},
+		{2, {"apo", "promedio_pizzas_orden"}, promedio_pizzas_orden},
+		{2, {"apd", "promedio_pizzas_dia"}, promedio_pizzas_dia},
 		{2, {"ims", "ingrediente_mas_vendido"}, ingrediente_mas_vendido},
 		{2, {"hp", "ventas_categoria"}, ventas_categoria}
 	};

@@ -3,12 +3,11 @@
 
 #include "../structs.h"
 
-// Definición de funciones venta promedio y ventas por categoría 
 // Encuentra el promedio de pizzas por orden
-char* encontrar_promedio_pizzas_orden(int *size, order *orders);
+char* promedio_pizzas_orden(int *size, order *orders);
 
 // Encuentra el promedio de pizzas por día
-char* encontrar_promedio_pizzas_dia(int *size, order *orders);
+char* promedio_pizzas_dia(int *size, order *orders);
 
 // Encuentra la cantidad de pizzas vendidas para cada categoría
 char* ventas_categoria(int *size, order *orders);
