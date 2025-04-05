@@ -8,11 +8,11 @@ typedef struct {
     int pizza_id;
     int order_id;
     char pizza_name_id[50];
-    int quantity;
+    float quantity;
     char order_date[15];
     char order_time[10];  
-    double unit_price;
-    double total_price;
+    float unit_price;
+    float total_price;
     char pizza_size;
     char pizza_category[20];
     char pizza_ingredients[200];
