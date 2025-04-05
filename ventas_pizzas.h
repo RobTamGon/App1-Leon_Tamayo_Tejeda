@@ -1,8 +1,10 @@
 #ifndef VENTAS_PIZZAS_H
 #define VENTAS_PIZZAS_H
 
+// Incluimos el .h de leer_csv.h y se define el .h
 #include "leer_csv.h"
 
+// Definición de funciones pizzas más y menos vendidas, e ingrediente más vendido
 // Encuentra la pizza más vendida
 char* encontrar_pizza_mas_vendida(int *largo, Venta *ventas);
 
