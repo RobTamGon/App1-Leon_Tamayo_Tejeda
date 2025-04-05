@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
 		// Si el parámetro ingresado no fue asociado a ninguna métrica, imprime un mensaje para notificarlo y sugerir ver los argumentos que sí se reconocen
 		if (!metrica_encontrada)
 		{
-			printf("! El agumento ingresado: '%s' no se encuentra asociado a ninguna metrica, ejecuta el programa sin argumentos para ver los argumentos reconocidos.\n", argv[arg_i]);
+			printf("! El argumento ingresado: '%s' no se encuentra asociado a ninguna metrica, ejecuta el programa sin argumentos para ver los argumentos reconocidos.\n", argv[arg_i]);
 		}
 	}
 
