@@ -1,7 +1,7 @@
 # Variables para configurar el Makefile
 TARGET = app1
 COMPILER = gcc
-OBJECTS = main.o leer_csv.o ventas_fechas.o ventas_pizzas.o
+OBJECTS = main.o leer_csv.o atributo_mayor_menor.o
 
 # Modifica algunos parámetros según el sistema operativo que lo ejecute
 # (Windows también requiere añadir la extensión .exe al ejecutable cuando se borre este archivo al limpiar)
@@ -14,10 +14,40 @@ else
 endif
 
 
-# Target de compilación
+# Target de compilación e impresión de instrucciones de ejecución después de terminar proceso de crear el ejecutable
 # (También elimina los Objetos (.o) intermedios después de crear el ejecutable)
 all: $(TARGET)
 	$(RM) $(OBJECTS)
+	@echo ################################################################################################################################
+	@echo # PROGRAMA COMPILADO EXITOSAMENTE                                                                                              #
+	@echo ################################################################################################################################
+	@echo # INSTRUCCIONES PARA EJECUTAR EL PROGRAMA:                                                                                     #
+	@echo # ---------------------------------------------------------------------------------------------------------------------------- #
+	@echo # PASO 1                                                                                                                       #
+	@echo # Acceda a la carpeta con el proyecto en una terminal usando el comando cd, y escriba:                                         #
+	@echo # ./app1                                                                                                                       #
+	@echo # ---------------------------------------------------------------------------------------------------------------------------- #
+	@echo # PASO 2                                                                                                                       #
+	@echo # Luego, para conocer datos sobre las ventas, separando por un espacio cada vez siguiendo la parte del comando ya escrito      #
+	@echo # puede agregar cualquiera de los siguientes argumentos sin importar el orden:                                                 #
+	@echo # - pms: Pizza mas vendida                                                                                                     #
+	@echo # - pls: Pizza menos vendida                                                                                                   #
+	@echo # - dms: Fecha con mas ventas en terminos de dinero (junto a la cantidad de dinero recaudado)                                  #
+	@echo # - dls: Fecha con menos ventas en terminos de dinero (junto a la cantidad de dinero recaudado)                                #
+	@echo # - dmsp: Fecha con mas ventas en terminos de cantidad de pizzas (junto a la cantidad de pizzas)                               #
+	@echo # - dlsp: Fecha con menos ventas en terminos de cantidad de pizzas (junto a la cantidad de pizzas)                             #
+	@echo # - apo: Promedio de pizzas por orden                                                                                          #
+	@echo # - apd: Promedio de pizzas por dia                                                                                            #
+	@echo # - ims: Ingrediente mas vendido                                                                                               #
+	@echo # - hp: Cantidad de pizzas por categoria vendidas                                                                              #
+	@echo # ---------------------------------------------------------------------------------------------------------------------------- #
+	@echo # PASO 3                                                                                                                       #
+	@echo # Presione enter para ejecutar el programa con los argumentos agregados.                                                       #
+	@echo # ---------------------------------------------------------------------------------------------------------------------------- #
+	@echo # EJEMPLO                                                                                                                      #
+	@echo # Para mostrar todos los datos posibles, escriba:                                                                              #
+	@echo # ./app1 ventas.csv pms pls dms dls dmsp dlsp apo apd ims hp                                                                   #
+	@echo ################################################################################################################################
 
 
 # Vinculación de Objetos intermedios al ejecutable
@@ -36,6 +66,12 @@ ventas_fechas.o: ventas_fechas.c ventas_fechas.h
 
 ventas_pizzas.o: ventas_pizzas.c ventas_pizzas.h
 	$(COMPILER) -c ventas_pizzas.c
+
+leer_csv.o: archivo/leer_csv.c archivo/leer_csv.h
+	$(COMPILER) -c archivo/leer_csv.c
+
+atributo_mayor_menor.o: metricas/atributo_mayor_menor.c metricas/atributo_mayor_menor.h
+	$(COMPILER) -c metricas/atributo_mayor_menor.c
 
 # Instrucción para limpiar el directorio, eliminando el archivo ejecutable y los objetos (.o) intermedios
 # (Ejemplo: make clean)
