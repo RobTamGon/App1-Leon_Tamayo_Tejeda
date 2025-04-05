@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "ventas_fechas.h"
+
+#include "../structs.h"
 
 #define MAX_FECHAS 1000 // Suponemos un máximo de 1000 fechas distintas
 
@@ -13,26 +14,26 @@ typedef struct {
 } VentaFecha;
 
 // Encuentra la fecha con más ventas en cantidad de pizzas
-char* encontrar_fecha_mas_vendida(int *largo, Venta *ventas) {
+char* encontrar_fecha_mas_vendida(int *size, order *orders) {
     VentaFecha ventas_fecha[MAX_FECHAS] = {0}; // Inicializamos la estructura de ventas por fecha
     int total_fechas = 0; // Contador de fechas
 
     // Recorrer las ventas y almacenar las ventas por fecha 
-    for (int i = 0; i < *largo; i++) {
+    for (int i = 0; i < *size; i++) {
         int idx = -1; // Inicializamos el índice a -1 para indicar que no se ha encontrado la fecha
         for (int j = 0; j < total_fechas; j++) {
-            if (strcmp(ventas_fecha[j].fecha, ventas[i].order_date) == 0) { // Si coincide, se guarda el índice
+            if (strcmp(ventas_fecha[j].fecha, orders[i].order_date) == 0) { // Si coincide, se guarda el índice
                 idx = j; // Guardamos el índice
                 break;
             }
         }
         if (idx == -1) { // Si no se ha encontrado la fecha, se añade a la lista
-            strcpy(ventas_fecha[total_fechas].fecha, ventas[i].order_date); // Copiamos la fecha
+            strcpy(ventas_fecha[total_fechas].fecha, orders[i].order_date); // Copiamos la fecha
             idx = total_fechas; // Guardamos el índice
             total_fechas++; // Aumentamos el contador de fechas
         }
         // Sumar la cantidad de pizzas de la fecha
-        ventas_fecha[idx].total_pizzas += ventas[i].quantity;
+        ventas_fecha[idx].total_pizzas += orders[i].quantity;
     }
 
     // Encontrar la fecha con más ventas en cantidad de pizzas
@@ -72,25 +73,25 @@ char* encontrar_fecha_mas_vendida(int *largo, Venta *ventas) {
 }
 
 // Encuentra la fecha con más ventas en dinero
-char* encontrar_fecha_mas_ingresos(int *largo, Venta *ventas) {
+char* encontrar_fecha_mas_ingresos(int *size, order *orders) {
     VentaFecha ventas_fecha[MAX_FECHAS] = {0}; // Inicializamos la estructura de ventas por fecha
     int total_fechas = 0; // Contador de fechas
 
     // Recorrer las ventas y almacenar el total de dinero por fecha
-    for (int i = 0; i < *largo; i++) {
+    for (int i = 0; i < *size; i++) {
         int idx = -1; // Inicializamos el índice a -1 para indicar que no se ha encontrado la fecha
         for (int j = 0; j < total_fechas; j++) {
-            if (strcmp(ventas_fecha[j].fecha, ventas[i].order_date) == 0) { // Si coincide, se guarda el índice
+            if (strcmp(ventas_fecha[j].fecha, orders[i].order_date) == 0) { // Si coincide, se guarda el índice
                 idx = j; // Guardamos el índice
                 break;
             }
         }
         if (idx == -1) { // Si no se ha encontrado la fecha, se añade a la lista
-            strcpy(ventas_fecha[total_fechas].fecha, ventas[i].order_date); // Copiamos la fecha
+            strcpy(ventas_fecha[total_fechas].fecha, orders[i].order_date); // Copiamos la fecha
             idx = total_fechas; // Guardamos el índice
             total_fechas++; // Aumentamos el contador de fechas
         }
-        ventas_fecha[idx].total_dinero += ventas[i].total_price; // Sumamos el total de dinero de la fecha
+        ventas_fecha[idx].total_dinero += orders[i].total_price; // Sumamos el total de dinero de la fecha
     }
 
     // Encontrar la fecha con más ingresos
@@ -130,25 +131,25 @@ char* encontrar_fecha_mas_ingresos(int *largo, Venta *ventas) {
 }
 
 // Encuentra la fecha con menos ventas en cantidad de pizzas
-char* encontrar_fecha_menos_vendida(int *largo, Venta *ventas) {
+char* encontrar_fecha_menos_vendida(int *size, order *orders) {
     VentaFecha ventas_fecha[MAX_FECHAS] = {0}; // Inicializamos la estructura de ventas por fecha
     int total_fechas = 0; // Contador de fechas
 
     // Recorrer las ventas y almacenar las ventas por fecha
-    for (int i = 0; i < *largo; i++) {
+    for (int i = 0; i < *size; i++) {
         int idx = -1; // Inicializamos el índice a -1 para indicar que no se ha encontrado la fecha
         for (int j = 0; j < total_fechas; j++) {
-            if (strcmp(ventas_fecha[j].fecha, ventas[i].order_date) == 0) { // Si coincide, se guarda el índice
+            if (strcmp(ventas_fecha[j].fecha, orders[i].order_date) == 0) { // Si coincide, se guarda el índice
                 idx = j; // Guardamos el índice
                 break;
             }
         }
         if (idx == -1) { // Si no se ha encontrado la fecha, se añade a la lista
-            strcpy(ventas_fecha[total_fechas].fecha, ventas[i].order_date); // Copiamos la fecha
+            strcpy(ventas_fecha[total_fechas].fecha, orders[i].order_date); // Copiamos la fecha
             idx = total_fechas; // Guardamos el índice
             total_fechas++; // Aumentamos el contador de fechas
         }
-        ventas_fecha[idx].total_pizzas += ventas[i].quantity; // Sumamos la cantidad de pizzas de la fecha
+        ventas_fecha[idx].total_pizzas += orders[i].quantity; // Sumamos la cantidad de pizzas de la fecha
     }
     
     // Encontrar la fecha con menos ventas en cantidad de pizzas
@@ -189,25 +190,25 @@ char* encontrar_fecha_menos_vendida(int *largo, Venta *ventas) {
 }
 
 // Encuentra la fecha con menos ventas en dinero
-char* encontrar_fecha_menos_ingresos(int *largo, Venta *ventas) {
+char* encontrar_fecha_menos_ingresos(int *size, order *orders) {
     VentaFecha ventas_fecha[MAX_FECHAS] = {0}; // Inicializamos la estructura de ventas por fecha
     int total_fechas = 0; // Contador de fechas
 
     // Recorrer las ventas y almacenar el total de dinero por fecha
-    for (int i = 0; i < *largo; i++) {
+    for (int i = 0; i < *size; i++) {
         int idx = -1; // Inicializamos el índice a -1 para indicar que no se ha encontrado la fecha
         for (int j = 0; j < total_fechas; j++) {
-            if (strcmp(ventas_fecha[j].fecha, ventas[i].order_date) == 0) { // Si coincide, se guarda el índice
+            if (strcmp(ventas_fecha[j].fecha, orders[i].order_date) == 0) { // Si coincide, se guarda el índice
                 idx = j; // Guardamos el índice
                 break;
             }
         }
         if (idx == -1) { // Si no se ha encontrado la fecha, se añade a la lista
-            strcpy(ventas_fecha[total_fechas].fecha, ventas[i].order_date); // Copiamos la fecha
+            strcpy(ventas_fecha[total_fechas].fecha, orders[i].order_date); // Copiamos la fecha
             idx = total_fechas; // Guardamos el índice
             total_fechas++; // Aumentamos el contador de fechas
         }
-        ventas_fecha[idx].total_dinero += ventas[i].total_price; // Sumamos el total de dinero de la fecha
+        ventas_fecha[idx].total_dinero += orders[i].total_price; // Sumamos el total de dinero de la fecha
     }
 
     // Encontrar la fecha con menos ingresos

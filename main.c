@@ -5,28 +5,9 @@
 #include "structs.h"							// Contiene la estructura de datos order
 #include "archivo/cargar_ordenes.h"				// Contiene la funcionalidad de leer la cantidad de órdenes en el archivo y completar las estructuras de datos de tipo order con los datos del archivo
 #include "metricas/atributo_mayor_menor.h"		// Contiene las funciones para las métricas de categoría Atributo Mayor o Menor: pms (Pizza más vendida), pls (Pizza menos vendida) e ims (Ingrediente más vendido)
+#include "metricas/fecha_mayor_menor.h"			// Contiene las funciones para las métricas de categoría Fecha con Mayor o Menor: dms (Fecha con más ventas en términos de dinero), dls (Fecha con menos ventas en términos de dinero), dmsp (Fecha con más ventas en términos de cantidad de pizzas) y dlsp (Fecha con menos ventas en términos de cantidad de pizzas)
 
 //ESTA PARTE ES TEMPORAL, SOLAMENTE PARA PROBAR
-char* f3(int *size, order *orders)
-{
-	return "f3";
-}
-
-char* f4(int *size, order *orders)
-{
-	return "f4";
-}
-
-char* f5(int *size, order *orders)
-{
-	return "f5";
-}
-
-char* f6(int *size, order *orders)
-{
-	return "f6";
-}
-
 char* f7(int *size, order *orders)
 {
 	return "f7";
@@ -69,10 +50,10 @@ int main(int argc, char *argv[])
 	{
 		{2, {"pms", "pizza_mas_vendida"}, pizza_mas_vendida},
 		{2, {"pls", "pizza_menos_vendida"}, pizza_menos_vendida},
-		{2, {"dms", "encontrar_fecha_mas_vendida"}, f3},
-		{2, {"dls", "encontrar_fecha_menos_vendida"}, f4},
-		{2, {"dmsp", "encontrar_fecha_mas_ingresos"}, f5},
-		{2, {"dlsp", "encontrar_fecha_menos_ingresos"}, f6},
+		{2, {"dms", "encontrar_fecha_mas_vendida"}, encontrar_fecha_mas_vendida},
+		{2, {"dls", "encontrar_fecha_menos_vendida"}, encontrar_fecha_menos_vendida},
+		{2, {"dmsp", "encontrar_fecha_mas_ingresos"}, encontrar_fecha_mas_ingresos},
+		{2, {"dlsp", "encontrar_fecha_menos_ingresos"}, encontrar_fecha_menos_ingresos},
 		{2, {"apo", "promedio_pizzas_por_orden"}, f7},
 		{2, {"apd", "promedio_pizzas_por_dia"}, f8},
 		{2, {"ims", "ingrediente_mas_vendido"}, ingrediente_mas_vendido},
