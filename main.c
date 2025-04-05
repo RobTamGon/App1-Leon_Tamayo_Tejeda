@@ -43,7 +43,7 @@ char* f10(int *size, order *orders)
 }
 
 
-#define INDICE_PARAMETRO_ARCHIVO 1						// Índice del parámetro que indica el nombre del archivo de datos a leer
+#define INDICE_PARAMETRO_ARCHIVO 1				// Índice del parámetro que indica el nombre del archivo de datos a leer
 #define PARAMETROS_ANTES_DE_METRICAS 2			// Cantidad de parámetros que deben haber antes de ingresar parámetros asociados a métricas
 #define LARGO_METRICAS 10						// Largo de la lista metricas, es decir, la cantidad de métricas/funciones que el programa reconoce
 #define MAX_ORDENES 1000						// Cantidad máxima de órdenes a guardar [SE PODRÍA ELIMINAR CON UNA FUNCIÓN PREVIA QUE REGRESA LA CANTIDAD DE ÓRDENES SIN RELLENAR LAS ESTRUCTURAS]
