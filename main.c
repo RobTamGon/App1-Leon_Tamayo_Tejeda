@@ -1,70 +1,56 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "structs.h"
+#include "archivo/leer_csv.h"
+#include "metricas/atributo_mayor_menor.h"
+
 //ESTA PARTE ES TEMPORAL, SOLAMENTE PARA PROBAR
-struct order
-{
-	int a;
-};
 
-char* f1(int *size, struct order *orders)
+char* f3(int *size, order *orders)
 {
-	return "f1 ";
+	return "f3";
 }
 
-char* f2(int *size, struct order *orders)
+char* f4(int *size, order *orders)
 {
-	return "f2 ";
+	return "f4";
 }
 
-char* f3(int *size, struct order *orders)
+char* f5(int *size, order *orders)
 {
-	return "f3 ";
+	return "f5";
 }
 
-char* f4(int *size, struct order *orders)
+char* f6(int *size, order *orders)
 {
-	return "f4 ";
+	return "f6";
 }
 
-char* f5(int *size, struct order *orders)
+char* f7(int *size, order *orders)
 {
-	return "f5 ";
+	return "f7";
 }
 
-char* f6(int *size, struct order *orders)
+char* f8(int *size, order *orders)
 {
-	return "f6 ";
+	return "f8";
 }
 
-char* f7(int *size, struct order *orders)
+char* f10(int *size, order *orders)
 {
-	return "f7 ";
-}
-
-char* f8(int *size, struct order *orders)
-{
-	return "f8 ";
-}
-
-char* f9(int *size, struct order *orders)
-{
-	return "f9 ";
-}
-
-char* f10(int *size, struct order *orders)
-{
-	return "f10 ";
+	return "f10";
 }
 
 
+#define MAX_ORDENES 1000
 #define LARGO_PARAMETROS 10
 
 
 int main(int argc, char *argv[])
 {
 	// Definición del tipo de variable que es el puntero a una de las funciones de las métricas
-	typedef char* (*PunteroFuncion)(int*, struct order*);
+	typedef char* (*PunteroFuncion)(int*, order*);
 
 
 	// Imprime ayuda si el programa no recibe suficientes argumentos
@@ -85,28 +71,28 @@ int main(int argc, char *argv[])
     }
 
 
-	// SECCIÓN PARA LEER Y PARAMETRIZAR LAS ÓRDENES
-	int largo_ordenes = 20;
-	struct order ordenes[largo_ordenes];
+	// Se lee el archivo ingresado como segundo parámetro en la línea de comando y se guardan las estructuras de las órdenes creadas a partir de esa lectura
+	order ordenes[MAX_ORDENES];
+	int largo_ordenes = leer_csv(argv[1], ordenes, MAX_ORDENES);
 
 
 	// Parámetros que se reconocerán en la línea de comando
-	char* parametros[LARGO_PARAMETROS] = {"pms", "pls", "dms", "dls", "dmsp", "dlsp", "apo", "apd", "ims", "hp"};
+	const char* parametros[LARGO_PARAMETROS] = {"pms", "pls", "dms", "dls", "dmsp", "dlsp", "apo", "apd", "ims", "hp"};
 
 	// Lista de punteros a las funciones de las métricas, asociada implícitamente por el índice con la lista de parámetros anterior
-	// (Ejemplo: "pms" en el índice 0 se asocia a f1, también en el índice 0)
-	const PunteroFuncion punteros[LARGO_PARAMETROS] = {f1, f2, f3, f4, f5, f6, f7, f8, f9, f10};
-	
+	// (Ejemplo: "pms" en el índice 0 se asocia a pizza_mas_vendida, que también está en el índice 0)
+	const PunteroFuncion punteros[LARGO_PARAMETROS] = {pizza_mas_vendida, pizza_menos_vendida, f3, f4, f5, f6, f7, f8, ingrediente_mas_vendido, f10};
+
 
 	// Se itera por cada parámetro ingresado después del nombre del programa y del nombre del archivo a leer para comparar con los parámetros que se reconocen
 	for (int arg_i = 2; arg_i < argc; arg_i++)
 	{
-		// Se itera por cada parámetro aceptado y se compara con el parámetro ingresado, si coinciden, se ejecuta la función asociada
+		// Se itera por cada parámetro que se reconocerá y se compara con el parámetro ingresado, si coinciden, se ejecuta la función asociada
 		for (int i = 0; i < LARGO_PARAMETROS; i++)
 		{
 			if (strcmp(argv[arg_i], parametros[i]) == 0)
 			{
-				printf("%s", punteros[i](&largo_ordenes, ordenes));
+				printf("- %s\n", punteros[i](&largo_ordenes, ordenes));
 			}
 		}
 	}
