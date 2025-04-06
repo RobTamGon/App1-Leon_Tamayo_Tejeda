@@ -69,7 +69,7 @@ void cargar_ordenes(const char *nombre_archivo, order *ordenes)
 			&ordenes[i].total_price,
 			ordenes[i].pizza_size,
 			ordenes[i].pizza_category,
-			ordenes[i].pizza_ingredients, //SE PODRÍA HACER QUE EN cargar_ordenes SE SEPAREN, DE TAL FORMA QUE pizza_ingredients SEA UNA LISTA CON LOS INGREDIENTES
+			ordenes[i].pizza_ingredients,
 			ordenes[i].pizza_name
 		);
 
