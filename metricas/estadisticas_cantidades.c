@@ -220,7 +220,7 @@ char* ventas_categoria(int *size, order *orders)
 	}
 
 	// Construye la respuesta
-	strcpy(respuesta, "Cantidad de pizzas vendidas por categoria: ");
+	strcpy(respuesta, "Cantidad de pizzas vendidas por categoria:\n");
 
 	// Añade la lista de categorías y cantidades de pizzas
 	int primera_categoria = 1;
@@ -230,13 +230,13 @@ char* ventas_categoria(int *size, order *orders)
 		{
 			if (!primera_categoria)
 			{ // Añade una coma antes de añadir la siguiente categoría
-				strcat(respuesta, ", ");
+				strcat(respuesta, "\n");
 			}
 
 			primera_categoria = 0; // Marca como no primera_categoría
 
 			char cantidad[1000]; // Reserva espacio para la cantidad de pizzas y categorias
-			sprintf(cantidad, "%s: %.2f pizzas", categorias[i].nombre, categorias[i].cantidad); // Convierte la cantidad a string
+			sprintf(cantidad, "---> %s: %.2f pizzas", categorias[i].nombre, categorias[i].cantidad); // Convierte la cantidad a string
 			strcat(respuesta, cantidad); // Añade la cantidad de pizzas a la respuesta
 		}
 	}

@@ -87,8 +87,9 @@ char* fecha_mas_vendida(int *size, order *orders)
 		}
 	}
 
-	strcat(respuesta, ". Cantidad de pizzas: ");  // Añade la tercera parte del mensaje
+	strcat(respuesta, ". (Cantidad de pizzas: ");  // Añade la tercera parte del mensaje
 	strcat(respuesta, pizzas_recaudado);  // Añade el total de pizzas
+	strcat(respuesta, ")");
 
 	return respuesta;
 }
@@ -165,8 +166,9 @@ char* fecha_mas_ingresos(int *size, order *orders)
 		}
 	}
 
-	strcat(respuesta, ". Cantidad de dinero recaudado: ");  // Añade la segunda parte del mensaje
+	strcat(respuesta, ". (Cantidad de dinero recaudado: ");  // Añade la segunda parte del mensaje
 	strcat(respuesta, dinero_recaudado);  // Añade el total de dinero
+	strcat(respuesta, ")");
 
 	return respuesta;
 }
@@ -243,8 +245,9 @@ char* fecha_menos_vendida(int *size, order *orders)
 		}
 	}
 
-	strcat(respuesta, ". Cantidad de pizzas: ");  // Añade la tercera parte del mensaje
+	strcat(respuesta, ". (Cantidad de pizzas: ");  // Añade la tercera parte del mensaje
 	strcat(respuesta, pizzas_recaudado);  // Añade el total de pizzas
+	strcat(respuesta, ")");
 
 	return respuesta;
 }
@@ -321,8 +324,9 @@ char* fecha_menos_ingresos(int *size, order *orders)
 		}
 	}
 
-	strcat(respuesta, ". Cantidad de dinero recaudado: ");  // Añade la segunda parte del mensaje
+	strcat(respuesta, ". (Cantidad de dinero recaudado: ");  // Añade la segunda parte del mensaje
 	strcat(respuesta, dinero_recaudado);  // Añade el total de dinero
+	strcat(respuesta, ")");
 
 	return respuesta;
 }
