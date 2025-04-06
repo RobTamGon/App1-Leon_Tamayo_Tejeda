@@ -1,46 +1,12 @@
-#include <stdio.h>								// Para imprimir (printf)
+#include <stdio.h>								// Para imprimir (printf y perror)
+#include <stdlib.h>								// Para utilizar memoria dinámica (malloc y free)
 #include <string.h>								// Para comparar Strings fácilmente (strcmp)
 
 #include "structs.h"							// Contiene la estructura de datos order
-#include "archivo/leer_csv.h"					// Contiene la funcionalidad de leer el archivo de datos y completar las estructuras de datos de tipo order
+#include "archivo/cargar_ordenes.h"				// Contiene la funcionalidad de leer la cantidad de órdenes en el archivo y completar las estructuras de datos de tipo order con los datos del archivo
 #include "metricas/atributo_mayor_menor.h"		// Contiene las funciones para las métricas de categoría Atributo Mayor o Menor: pms (Pizza más vendida), pls (Pizza menos vendida) e ims (Ingrediente más vendido)
-
-
-//ESTA PARTE ES TEMPORAL, SOLAMENTE PARA PROBAR
-char* f3(int *size, order *orders)
-{
-	return "f3";
-}
-
-char* f4(int *size, order *orders)
-{
-	return "f4";
-}
-
-char* f5(int *size, order *orders)
-{
-	return "f5";
-}
-
-char* f6(int *size, order *orders)
-{
-	return "f6";
-}
-
-char* f7(int *size, order *orders)
-{
-	return "f7";
-}
-
-char* f8(int *size, order *orders)
-{
-	return "f8";
-}
-
-char* f10(int *size, order *orders)
-{
-	return "f10";
-}
+#include "metricas/fecha_mayor_menor.h"			// Contiene las funciones para las métricas de categoría Fecha con Mayor o Menor: dms (Fecha con más ventas en términos de dinero), dls (Fecha con menos ventas en términos de dinero), dmsp (Fecha con más ventas en términos de cantidad de pizzas) y dlsp (Fecha con menos ventas en términos de cantidad de pizzas)
+#include "metricas/estadisticas_cantidades.h"	// Contiene las funciones para las métricas de categoría Estadísticas y Cantidades: apo (Promedio de pizzas por orden), apd (Promedio de pizzas por día) y hp (Cantidad de pizzas por categoría vendidas)
 
 
 #define INDICE_PARAMETRO_ARCHIVO 1				// Índice del parámetro que indica el nombre del archivo de datos a leer
@@ -50,33 +16,33 @@ char* f10(int *size, order *orders)
 
 
 
+// Define el tipo de variable que es el puntero a una de las funciones de las métricas
+typedef char* (*PunteroFuncion)(int*, order*);
+
+// Define el tipo de variable que contiene el puntero a la función de su métrica correspondiente, junto con los Strings que se asocian a esa métrica
+typedef struct
+{
+	const int largo_comandos;
+	const char *comandos[2];
+	const PunteroFuncion funcion_metrica;
+} Metrica;
+
+
 int main(int argc, char *argv[])
 {
-	// Define el tipo de variable que es el puntero a una de las funciones de las métricas
-	typedef char* (*PunteroFuncion)(int*, order*);
-
-	// Define el tipo de variable que contiene el puntero a la función de su métrica correspondiente, junto con los Strings que se asocian a esa métrica
-	typedef struct
-	{
-		const int largo_comandos;
-		const char *comandos[2];
-		const PunteroFuncion funcion_metrica;
-	} Metrica;
-
-
 	// Lista de estructuras de tipo Metrica, es decir, inicializa todas las opciones que reconocerá el programa
 	const Metrica metricas[LARGO_METRICAS] =
 	{
 		{2, {"pms", "pizza_mas_vendida"}, pizza_mas_vendida},
 		{2, {"pls", "pizza_menos_vendida"}, pizza_menos_vendida},
-		{2, {"dms", "encontrar_fecha_mas_vendida"}, f3},
-		{2, {"dls", "encontrar_fecha_menos_vendida"}, f4},
-		{2, {"dmsp", "encontrar_fecha_mas_ingresos"}, f5},
-		{2, {"dlsp", "encontrar_fecha_menos_ingresos"}, f6},
-		{2, {"apo", "promedio_pizzas_por_orden"}, f7},
-		{2, {"apd", "promedio_pizzas_por_dia"}, f8},
+		{2, {"dms", "fecha_mas_vendida"}, fecha_mas_vendida},
+		{2, {"dls", "fecha_menos_vendida"}, fecha_menos_vendida},
+		{2, {"dmsp", "fecha_mas_ingresos"}, fecha_mas_ingresos},
+		{2, {"dlsp", "fecha_menos_ingresos"}, fecha_menos_ingresos},
+		{2, {"apo", "promedio_pizzas_orden"}, promedio_pizzas_orden},
+		{2, {"apd", "promedio_pizzas_dia"}, promedio_pizzas_dia},
 		{2, {"ims", "ingrediente_mas_vendido"}, ingrediente_mas_vendido},
-		{2, {"hp", "cantidad_de_pizzas_por_categoria_vendidas"}, f10}
+		{2, {"hp", "ventas_categoria"}, ventas_categoria}
 	};
 
 
@@ -98,15 +64,28 @@ int main(int argc, char *argv[])
     }
 
 
-	// Lee el archivo ingresado como segundo parámetro en la línea de comando y guarda las estructuras de las órdenes creadas a partir de esa lectura
-	order ordenes[MAX_ORDENES];
-	int largo_ordenes = leer_csv(argv[INDICE_PARAMETRO_ARCHIVO], ordenes, MAX_ORDENES);
+	// Obtiene la cantidad de órdenes en el archivo CSV entregado
+	int cantidad_ordenes = obtener_cantidad_ordenes(argv[INDICE_PARAMETRO_ARCHIVO]);
+	
+	// Asigna memoria dinámica para almacenar las estructuras de las órdenes, con un check para avisar si no se puede asignar todo el espacio necesario
+	order *ordenes = malloc(cantidad_ordenes * sizeof(order));
+	if (!ordenes)
+	{
+		perror("ERROR al asignar memoria");
+		return 1;
+	}
+
+	// Carga los datos del archivo CSV entregado en las estructuras
+	cargar_ordenes(argv[INDICE_PARAMETRO_ARCHIVO], ordenes);
 
 
 	// De manera general: itera por cada parámetro, métrica, y comando reconocido para encontrar la métrica correcta asociada al parámetro ingresado
 	// Específicamente: itera por cada parámetro desde el primero que debe considerarse asociado a una métrica
 	for (int arg_i = PARAMETROS_ANTES_DE_METRICAS; arg_i < argc; arg_i++)
 	{
+		// Variable que guarda si el parámetro ingresado fue asociado a una métrica o no
+		int metrica_encontrada = 0;
+
 		// Itera por cada estructura de tipo Metrica
 		for (int metrica_i = 0; metrica_i < LARGO_METRICAS; metrica_i++)
 		{
@@ -116,11 +95,22 @@ int main(int argc, char *argv[])
 			{
 				if (strcmp(argv[arg_i], metricas[metrica_i].comandos[comando_i]) == 0)
 				{
-					printf("- %s\n", metricas[metrica_i].funcion_metrica(&largo_ordenes, ordenes));
+					metrica_encontrada = 1;
+					printf("- %s\n", metricas[metrica_i].funcion_metrica(&cantidad_ordenes, ordenes));
 				}
 			}
 		}
+
+		// Si el parámetro ingresado no fue asociado a ninguna métrica, imprime un mensaje para notificarlo y sugerir ver los argumentos que sí se reconocen
+		if (!metrica_encontrada)
+		{
+			printf("! El argumento ingresado: '%s' no se encuentra asociado a ninguna metrica, ejecuta el programa sin argumentos para ver los argumentos reconocidos.\n", argv[arg_i]);
+		}
 	}
+
+
+	// Se libera la memoria dinámica usada en almacenar las órdenes
+	free(ordenes);
 
 
 	return 0;

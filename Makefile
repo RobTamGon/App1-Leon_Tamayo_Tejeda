@@ -1,7 +1,7 @@
 # Variables para configurar el Makefile
 TARGET = app1
 COMPILER = gcc
-OBJECTS = main.o leer_csv.o atributo_mayor_menor.o
+OBJECTS = main.o cargar_ordenes.o atributo_mayor_menor.o fecha_mayor_menor.o estadisticas_cantidades.o
 
 # Modifica algunos parámetros según el sistema operativo que lo ejecute
 # (Windows también requiere añadir la extensión .exe al ejecutable cuando se borre este archivo al limpiar)
@@ -55,14 +55,20 @@ $(TARGET): $(OBJECTS)
 	$(COMPILER) -o $(TARGET) $(OBJECTS)
 
 # Archivos .c y .h a compilar en Objetos (.o)
-main.o: main.c
+main.o: main.c structs.h archivo/cargar_ordenes.h metricas/atributo_mayor_menor.h metricas/fecha_mayor_menor.h metricas/estadisticas_cantidades.h
 	$(COMPILER) -c main.c
 
-leer_csv.o: archivo/leer_csv.c archivo/leer_csv.h
-	$(COMPILER) -c archivo/leer_csv.c
+cargar_ordenes.o: archivo/cargar_ordenes.c structs.h
+	$(COMPILER) -c archivo/cargar_ordenes.c
 
-atributo_mayor_menor.o: metricas/atributo_mayor_menor.c metricas/atributo_mayor_menor.h
+atributo_mayor_menor.o: metricas/atributo_mayor_menor.c structs.h
 	$(COMPILER) -c metricas/atributo_mayor_menor.c
+
+fecha_mayor_menor.o: metricas/fecha_mayor_menor.c structs.h
+	$(COMPILER) -c metricas/fecha_mayor_menor.c
+
+estadisticas_cantidades.o: metricas/estadisticas_cantidades.c structs.h
+	$(COMPILER) -c metricas/estadisticas_cantidades.c
 
 # Instrucción para limpiar el directorio, eliminando el archivo ejecutable y los objetos (.o) intermedios
 # (Ejemplo: make clean)
