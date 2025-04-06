@@ -25,7 +25,9 @@
   <ftejeda@alumnos.uai.cl>
 
 ## **Línea de compilación** <br>
-  < Realizarlo cuando se haya terminado >
+  make
+
+  ./app1 ventas.csv pms pls dms dls dmsp dlsp apo apd ims hp
 
 # **Tarea 1: Pizzería en C**
 
